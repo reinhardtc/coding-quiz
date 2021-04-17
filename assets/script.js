@@ -13,12 +13,12 @@ var buttonContainer = document.querySelector('.button-container');
 var userScore = document.querySelector('#finish');
 var playerInfo = document.querySelector('#playerInfo');
 var submit = document.querySelector('#submit');
-var submitButton;
 var a1 = '';
 var a2 = '';
 var a3 = '';
 var a4 = '';
 var timeLeft = 75;
+var timeInterval = null;
 
 var questions = [
   {
@@ -49,13 +49,13 @@ var questions = [
 ];
 
 highScoreEl.addEventListener('click', function () {
-  alert('your high score is ' + highScore);
+  alert('your high score is ' + localStorage.getItem('High Score'));
 });
 
 // Timer that counts down from 75
 function countdown() {
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
-  var timeInterval = setInterval(function () {
+  timeInterval = setInterval(function () {
     // As long as the `timeLeft` is greater than 1
     if (timeLeft > 1) {
       // Set the `textContent` of `timerEl` to show the remaining seconds
@@ -64,7 +64,7 @@ function countdown() {
       timeLeft--;
     } else {
       // Once `timeLeft` gets to 0, set `timerEl` to an empty string
-      timerEl.textContent = '0';
+      timerEl.textContent = 'Time Left: 0';
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
     }
@@ -102,33 +102,58 @@ function getQuestions() {
 
 function answerCheck() {
   if (this.value !== questions[index].answer) {
-    timeLeft -= 10;
+    timeLeft -= 9;
     incorrectSound.play();
   } else {
     correctSound.play();
     currentScore += 10;
   }
   index++;
-  if (index === questions.length) {
+  if (index === questions.length || timeLeft === 0) {
+    console.log('test');
     quizOver();
   } else {
     getQuestions();
   }
 }
 
+// function to end quiz and save high score
+
 function quizOver() {
+  // remove final question and buttons and stop timer
   choicesEl.remove();
   questionsEl.remove();
+  clearInterval(timeInterval);
+
+  // display final score and prompt to enter initials
+  currentScore = currentScore + timeLeft;
   userScore.textContent = 'Your final score is:' + currentScore;
   playerInfo.textContent = 'Enter your initials:';
+
+  //create input field for initials
   var scoreInput = document.createElement('input');
+  scoreInput.className = '.scoreInput';
   playerInfo.appendChild(scoreInput);
-  submitButton = document.createElement('button');
+
+  // create submit button
+  var submitButton = document.createElement('button');
   submitButton.classList.add('btn', 'btn-primary', 'btn-lg', 'submit-btn');
   submitButton.textContent = 'Submit';
   submit.appendChild(submitButton);
 
+  // save input to local storage on button click
   submitButton.addEventListener('click', function () {
-    localStorage.setItem('Initials', scoreInput);
+    var playerInitials = document.querySelector('input').value;
+    var highScoreObj = JSON.stringify({ currentScore, playerInitials });
+    console.log(highScoreObj);
+    localStorage.setItem('High Score', highScoreObj);
+
+    // create replay button
+    userScore.remove();
+    playerInfo.remove();
+    submitButton.textContent = 'Replay?';
+    submitButton.addEventListener('click', function () {
+      location.reload();
+    });
   });
 }
