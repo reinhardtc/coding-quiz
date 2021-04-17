@@ -1,0 +1,67 @@
+header {
+  height: 150px;
+  margin-top: 20px;
+}
+
+#high-score-link {
+  color: #7952b3;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.timer {
+  margin-right: 50px;
+}
+
+.main-content {
+  justify-content: center;
+  text-align: center;
+}
+
+.instructions {
+  width: 500px;
+  text-align: center;
+}
+
+.button-container {
+  justify-content: center;
+}
+
+.btn,
+.btn-primary,
+.choice,
+.submit-btn {
+  background-color: #6930c3 !important;
+  border: #6930c3 !important;
+}
+
+.btn:hover,
+.btn-primary:hover,
+.choice:hover,
+.submit-btn:hover {
+  background-color: #845ec2 !important;
+  border: #845ec2 !important;
+}
+
+#choices {
+  text-align: center;
+  padding: 15px;
+}
+
+#questions {
+  text-align: center;
+}
+
+.answer-btn {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+#finish,
+#playerInfo,
+#submit {
+  text-align: center;
+}
