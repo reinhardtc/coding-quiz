@@ -30,6 +30,8 @@ header {
 	text-align: center;
 }
 
+/* Buttons */
+
 .button-container {
 	justify-content: center;
 }
@@ -50,6 +52,13 @@ header {
 	border: #845ec2 !important;
 }
 
+.answer-btn {
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+/* Questions and answers */
+
 #choices {
 	text-align: center;
 	padding: 15px;
@@ -59,16 +68,13 @@ header {
 	text-align: center;
 }
 
-.answer-btn {
-	margin-right: 10px;
-	margin-left: 10px;
-}
-
 #finish,
 #playerInfo,
 #submit {
 	text-align: center;
 }
+
+/* footer */
 
 footer {
 	display: flex;
